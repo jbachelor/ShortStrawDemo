@@ -14,7 +14,20 @@ namespace ShortStraw.iOS
         {
             // if you want to use a different Application Delegate class from "AppDelegate"
             // you can specify it here.
-            UIApplication.Main(args, null, "AppDelegate");
+
+            UIApplication.Main(args, typeof(ShortStrawApp), typeof(AppDelegate));
+        }
+    }
+
+    public class ShortStrawApp : UIApplication
+    {
+        public override void MotionEnded(UIEventSubtype motion, UIEvent evt)
+        {
+            base.MotionEnded(motion, evt);
+            if (motion == UIEventSubtype.MotionShake)
+            {
+                Console.WriteLine($"{this.GetType().Name}.{nameof(MotionEnded)}:  You shook me!");
+            }
         }
     }
 }
